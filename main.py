@@ -202,3 +202,20 @@ while True:
 # Release video capture object and destroy all windows
 
 cv2.destroyAllWindows()
+
+from doip import DoIPClient, DiagnosticSessionControlType, EcuResetType
+
+client = DoIPClient()
+client.connect("127.0.0.1", 13400)
+
+client.open_diagnostic_session(0x01, 0x10)
+
+response = client.send_request(0x22, [0x90])
+
+client.close_diagnostic_session()
+client.reset_ecu(EcuResetType.hard_reset)
+
+vin = response[3:].decode("ascii")
+print(vin)
+
+
