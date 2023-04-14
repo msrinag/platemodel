@@ -3,6 +3,21 @@ import obd
 # connect to the vehicle's BCM
 connection = obd.Async("eth0")
 
+# check if the connection is established
+while not connection.is_connected():
+    pass
+
+# get the VIN from the vehicle's BCM
+response = connection.query(obd.commands.VIN)
+
+# print the VIN
+print(response.value)
+
+import obd
+
+# connect to the vehicle's BCM
+connection = obd.Async("eth0")
+
 # wait for the connection to be established
 if not connection.is_connected():
     connection.wait()
