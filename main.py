@@ -3,6 +3,18 @@ import obd
 # Connect to the OBD-II port (e.g. /dev/ttyUSB0)
 obd_port = obd.OBD("/dev/ttyUSB0")
 
+# Check if the VIN command is supported
+if obd.commands.GET_VIN in obd_port.supported_commands:
+    response = obd_port.query(obd.commands.GET_VIN)
+    print("VIN:", response.value)
+else:
+    print("VIN command not supported")
+
+import obd
+
+# Connect to the OBD-II port (e.g. /dev/ttyUSB0)
+obd_port = obd.OBD("/dev/ttyUSB0")
+
 # Query the VIN command
 response = obd_port.query(obd.commands.GET_VIN)
 
