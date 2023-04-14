@@ -218,4 +218,19 @@ client.reset_ecu(EcuResetType.hard_reset)
 vin = response[3:].decode("ascii")
 print(vin)
 
+import obd
+
+# Establish connection to OBD-II port
+connection = obd.OBD()
+
+# Check if the connection was successful
+if connection.is_connected():
+    # Retrieve VIN number
+    response = connection.query(obd.commands.GET_VIN)
+    if response.is_null():
+        print("VIN number not found")
+    else:
+        print("VIN number: " + str(response.value))
+else:
+    print("Unable to connect to OBD-II port")
 
