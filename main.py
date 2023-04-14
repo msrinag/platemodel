@@ -1,3 +1,32 @@
+import obd
+import socket
+
+# Define the target MAC address
+target_mac = b'\x00\x11\x22\x33\x44\x55'
+
+# Create a socket with AF_PACKET family
+s = socket.socket(socket.AF_PACKET, socket.SOCK_RAW)
+
+# Set the network interface name (e.g. can0)
+iface = "can0"
+
+# Bind the socket to the network interface
+s.bind((iface, 0))
+
+# Connect to the OBD-II port (e.g. /dev/ttyUSB0)
+obd_port = obd.OBD("/dev/ttyUSB0")
+
+# Receive a packet
+packet = s.recvfrom(65565)[0]
+
+# Extract the VIN from the OBD-II response
+response = obd_port.query(obd.commands.GET_VIN)
+vin = response.value
+
+# Print the VIN
+print("Received packet from MAC address:", packet[0:6].hex())
+print("VIN:", vin)
+
 import socket
 import binascii
 
