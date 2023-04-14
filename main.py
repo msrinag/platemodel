@@ -1,3 +1,31 @@
+import socket
+
+# Define the BCM IP address and port number
+BCM_IP = '192.168.0.10'
+BCM_PORT = 6804
+
+# Define the VIN request message
+VIN_REQUEST_MSG = b'\x02\x10\x03'
+
+# Create a TCP socket and connect to the BCM
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect((BCM_IP, BCM_PORT))
+
+# Send the VIN request message to the BCM
+sock.send(VIN_REQUEST_MSG)
+
+# Receive the VIN response message from the BCM
+VIN_RESPONSE_MSG = sock.recv(1024)
+
+# Extract the VIN from the response message
+VIN = VIN_RESPONSE_MSG[6:22].decode('ascii')
+
+# Print the VIN
+print('VIN: ' + VIN)
+
+# Close the socket
+sock.close()
+
 import obd
 
 # connect to the vehicle's BCM
