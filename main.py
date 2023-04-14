@@ -1,3 +1,29 @@
+from doip import DoIPClient
+from doip import VehicleIdentification
+
+# Define the VIN query function
+def query_vin(client):
+    vin = None
+    vehicle_identification = client.get_vehicle_identification()
+    if vehicle_identification is not None:
+        vin = vehicle_identification.vehicle_id_number
+    return vin
+
+# Connect to the vehicle
+client = DoIPClient('192.168.0.10')  # Replace with your vehicle's IP address
+client.connect()
+
+# Check if the connection was successful
+if client.is_connected():
+    # Retrieve VIN number
+    vin = query_vin(client)
+    if vin is None:
+        print("VIN number not found")
+    else:
+        print("VIN number: " + vin)
+else:
+    print("Unable to connect to vehicle")
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
