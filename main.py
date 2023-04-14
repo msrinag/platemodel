@@ -1,5 +1,16 @@
 import obd
 
+# Connect to the OBD-II to Ethernet adapter (e.g. 192.168.0.10:35000)
+obd_port = obd.OBD("192.168.0.10:35000")
+
+# Query the VIN command
+response = obd_port.query(obd.commands.GET_VIN)
+
+# Print the VIN
+print("VIN:", response.value)
+
+import obd
+
 # Connect to the OBD-II port (e.g. /dev/ttyUSB0)
 obd_port = obd.OBD("/dev/ttyUSB0")
 
