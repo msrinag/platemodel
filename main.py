@@ -1,4 +1,15 @@
 import obd
+
+# Connect to the OBD-II port (e.g. /dev/ttyUSB0)
+obd_port = obd.OBD("/dev/ttyUSB0")
+
+# Query the VIN command
+response = obd_port.query(obd.commands.GET_VIN)
+
+# Print the VIN
+print("VIN:", response.value)
+
+import obd
 import socket
 
 # Define the target MAC address
