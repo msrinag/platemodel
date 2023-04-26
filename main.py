@@ -1,3 +1,11 @@
+pragma runLim, 0
+pragma includeFile "do.h"
+
+void main() {
+    string rootFolderName = rootFolder.name
+    print "Root folder name: " rootFolderName
+}
+
 string url = "https://example.com/myfile.txt"
 string localPath = "C:\\temp\\myfile.txt" // example local path
 
