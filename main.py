@@ -1,3 +1,13 @@
+string url = "https://example.com/myfile.txt"
+string localPath = "C:\\temp\\myfile.txt" // example local path
+
+int result = URLDownloadToFile url, localPath
+if (result == 0) {
+    print "File downloaded successfully."
+} else {
+    print "Error downloading file. Error code: " result
+}
+
 string path = "C:\\myFolder" // example path
 Folder folder = folder path
 
