@@ -1,3 +1,55 @@
+The doipclient library is a Python library for communicating with a Diagnostic Over IP (DoIP) server. Here are some sample programs using the doipclient library:
+
+Simple DoIP client program:
+python
+Copy code
+from doipclient import DoIPClient
+
+# Connect to a DoIP server
+client = DoIPClient('192.168.1.1', 13400)
+
+# Send a diagnostic request
+request = b'\x02\x10\x03'
+response = client.send_request(request)
+
+# Print the response
+print(response)
+In this program, we create a DoIPClient object and connect to a DoIP server at IP address 192.168.1.1 and port 13400. We then send a diagnostic request b'\x02\x10\x03' to the server and print the response.
+
+Using a custom DoIP message handler:
+python
+Copy code
+from doipclient import DoIPClient, DoIPMessageHandler
+
+# Define a custom DoIP message handler
+class MyDoIPMessageHandler(DoIPMessageHandler):
+    def handle_response(self, response):
+        # Print the response
+        print(response)
+
+# Connect to a DoIP server using the custom message handler
+client = DoIPClient('192.168.1.1', 13400, message_handler=MyDoIPMessageHandler())
+
+# Send a diagnostic request
+request = b'\x02\x10\x03'
+client.send_request(request)
+In this program, we define a custom DoIP message handler MyDoIPMessageHandler that simply prints any response it receives. We then create a DoIPClient object and connect to a DoIP server at IP address 192.168.1.1 and port 13400, using the custom message handler. We then send a diagnostic request b'\x02\x10\x03' to the server, and the response is handled by the custom message handler.
+
+Using a timeout:
+python
+Copy code
+from doipclient import DoIPClient, DoIPTimeoutError
+
+# Connect to a DoIP server with a timeout of 5 seconds
+client = DoIPClient('192.168.1.1', 13400, timeout=5)
+
+# Send a diagnostic request
+request = b'\x02\x10\x03'
+try:
+    response = client.send_request(request)
+except DoIPTimeoutError:
+    print('Request timed out')
+In this program, we create a DoIPClient object and connect to a DoIP server at IP address 192.168.1.1 and port 13400, with a timeout of 5 seconds. We then send a diagnostic request b'\x02\x10\x03' to the server. If the request times out, a DoIPTimeoutError exception is raised, and we print a message indicating that the request timed out.
 import obd
 
 # Connect to the OBD-II to Ethernet adapter (e.g. 192.168.0.10:35000)
