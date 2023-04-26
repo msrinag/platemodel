@@ -1,3 +1,20 @@
+string path = "C:\\myFolder" // example path
+Folder folder = folder path
+
+print "Files in folder " path ":"
+for (file in folder "") {
+    if (isFile(file)) {
+        print file ""
+    }
+}
+
+print "Folders in folder " path ":"
+for (subfolder in folder "") {
+    if (isFolder(subfolder)) {
+        print subfolder ""
+    }
+}
+
 The doipclient library is a Python library for communicating with a Diagnostic Over IP (DoIP) server. Here are some sample programs using the doipclient library:
 
 Simple DoIP client program:
