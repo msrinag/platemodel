@@ -1,6 +1,22 @@
 string path = "C:\\myFolder" // example path
 Folder folder = folder path
 
+// print the folder name and path
+print "Folder name: " folder name()
+print "Folder path: " folder ""
+
+// print the contents of the folder
+for (item in folder "") {
+    if (isFile(item)) {
+        print "File: " item ""
+    } else if (isFolder(item)) {
+        print "Folder: " item ""
+    }
+}
+
+string path = "C:\\myFolder" // example path
+Folder folder = folder path
+
 print "Files in folder " path ":"
 for (file in folder "") {
     if (isFile(file)) {
