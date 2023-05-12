@@ -1,3 +1,14 @@
+import can
+
+# Set up the CAN bus
+bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
+
+# Create a CAN message with ID 0x123 and data 0x01, 0x02, 0x03
+msg = can.Message(arbitration_id=0x123, data=[0x01, 0x02, 0x03])
+
+# Send the message on the bus
+bus.send(msg)
+
 pragma runLim, 0
 pragma includeFile "do.h"
 
