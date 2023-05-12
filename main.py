@@ -1,3 +1,20 @@
+import uds
+
+# Connect to the BCM
+bcm_address = 0x11
+can_interface = "can0"
+client = uds.UdsClient(bcm_address, can_interface)
+
+# Send a request to retrieve the VIN
+response = client.read_data_by_identifier(0xF190)
+
+# Print the VIN
+if response.code == uds.ResponseCode.OK:
+    vin = response.data.decode('ascii')
+    print(f"VIN: {vin}")
+else:
+    print(f"Error: {response.code}")
+
 import doip
 import socket
 
