@@ -1,3 +1,29 @@
+import doip
+import socket
+
+# Connect to the DoIP gateway
+gateway_ip = '192.168.0.1'
+gateway_port = 13400
+gateway_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+gateway_socket.connect((gateway_ip, gateway_port))
+
+# Create a DoIP client
+client = doip.Client(gateway_socket)
+
+# Connect to the BCM
+bcm_ip = '192.168.0.2'
+bcm_port = 13400
+client.connect(bcm_ip, bcm_port)
+
+# Send a request to retrieve the VIN
+response = client.request(doip.ServiceId.REQUEST_VEHICLE_IDENTIFICATION_NUMBER)
+
+# Print the VIN
+if response.service_id == doip.ServiceId.RESPONSE_VEHICLE_IDENTIFICATION_NUMBER:
+    print(f"VIN: {response.vin}")
+else:
+    print("Error: Unexpected response")
+
 import can
 
 # Set up the CAN bus
