@@ -1,3 +1,29 @@
+To send a message through the CAN bus using Python and retrieve the VIN (Vehicle Identification Number), you can use the python-can library along with a suitable CAN interface. Here's a concise example:
+
+```python
+import can
+
+# Set up the CAN bus interface
+bus = can.interface.Bus(channel='can0', bustype='socketcan')
+
+# Send a CAN message
+message = can.Message(arbitration_id=0x123, data=[0x01, 0x02, 0x03])
+bus.send(message)
+
+# Receive CAN messages
+while True:
+    received_msg = bus.recv()
+    if received_msg.arbitration_id == 0x456:
+        vin = received_msg.data.decode('utf-8')  # Assuming VIN is sent as a string
+        print("Received VIN:", vin)
+        break  # Exit the loop after receiving the VIN
+```
+
+In this example, the code sets up the CAN bus interface using the `can.interface.Bus()` function, specifying the channel and bus type. It then sends a CAN message with an arbitration ID of `0x123` and data bytes `[0x01, 0x02, 0x03]`.
+
+The code then enters a loop to receive CAN messages continuously. Once a message with the arbitration ID `0x456` is received, it assumes the VIN is contained in the message's data. It decodes the data as a UTF-8 string and prints the VIN. Finally, it breaks out of the loop to stop receiving further messages.
+
+Note that you need to have the appropriate CAN hardware and drivers set up on your system, and the `can` library installed (`pip install python-can`) for this code to work. Also, make sure to replace `'can0'` with the actual channel name or device path for your CAN interface.
 import uds
 
 # Connect to the BCM
