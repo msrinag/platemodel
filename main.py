@@ -1,3 +1,24 @@
+import can
+import isotp
+
+# Set up the CAN bus interface
+bus = can.interface.Bus(channel='can0', bustype='socketcan')
+
+# Create an ISO-TP socket
+isotp_socket = isotp.socket(bus, rxid=0x456, txid=0x123)
+
+# Send a CAN message
+message = can.Message(arbitration_id=0x123, data=[0x01, 0x02, 0x03])
+isotp_socket.send(message)
+
+# Receive ISO-TP messages
+while True:
+    received_msg = isotp_socket.recv()
+    if received_msg.arbitration_id == 0x456:
+        vin = received_msg.data.decode('utf-8')  # Assuming VIN is sent as a string
+        print("Received VIN:", vin)
+        break  # Exit the loop after receiving the VIN
+
 I apologize for the confusion. It seems there was an error in my previous response. The `can` library does not have a built-in `interface` attribute.
 
 To send messages and receive VIN information via CAN in Python, you can use the `python-can` library along with the appropriate interface library for your CAN hardware. The interface libraries vary depending on the hardware you are using.
